@@ -2,4 +2,3 @@ streamlit
 networkx
 streamlit_agraph
 matplotlib
-glob
