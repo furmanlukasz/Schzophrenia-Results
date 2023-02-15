@@ -29,6 +29,7 @@ edge_scale = st.slider('Select edge weight', 0.0, 20.0, 8.5, step=0.1)
 
 schizo_list_g = glob.glob(f'stats/sch/{take}/*')
 control_list_g = glob.glob(f'stats/control/{take}/*')
+print(schizo_list_g)
 
 schizo_list_g_names = [x.split('/')[3][15:] for x in schizo_list_g]
 control_list_g_names = [x.split('/')[3][15:] for x in control_list_g]
