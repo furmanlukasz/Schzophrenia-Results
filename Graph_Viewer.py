@@ -27,7 +27,7 @@ sidebar = st.sidebar
 # select method from list of methods
 take = sidebar.selectbox('Select a take', [x[10:] for x in glob.glob('stats/sch/G*')])
 fmin, fmax = st.slider('Select a frequency range', 1, 45, (1, 45), step=1)
-edge_scale = st.slider('Select edge weight', 0.0, 20.0, 8.5, step=0.1)
+edge_scale = sidebar.slider('Edge weight multiplayer', 0.0, 20.0, 8.5, step=0.1)
 
 schizo_list_g = glob.glob(f'stats/sch/{take}/*')
 control_list_g = glob.glob(f'stats/control/{take}/*')
@@ -45,7 +45,7 @@ else:
 # check if G is instance of list
 if isinstance(G, list):
 
-    t_epoch = st.slider('Select a epoch', 0, len(G), 5, step=1)
+    t_epoch = st.slider('Select a epoch', 0, len(G)-1, 5, step=1)
     print(G[t_epoch].to_networkx())
     g_vis = freq_to_display(fmin, fmax, G[t_epoch].to_networkx())
 else:
