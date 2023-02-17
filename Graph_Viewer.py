@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from graph_utils import get_graph, get_data
 from streamlit_agraph import agraph, Node, Edge, Config
 import networkx as nx
 import glob
