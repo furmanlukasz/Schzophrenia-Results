@@ -5,6 +5,7 @@ import networkx as nx
 import glob
 import matplotlib.pyplot as plt
 import math
+import igraph
 
 plt.rcParams.update({'text.color': "red",
                      'axes.labelcolor': "red"})

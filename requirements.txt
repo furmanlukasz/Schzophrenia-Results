@@ -2,3 +2,4 @@ streamlit
 networkx==2.5.1
 streamlit_agraph
 matplotlib
+igraph
