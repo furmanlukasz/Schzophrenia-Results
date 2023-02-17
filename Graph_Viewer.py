@@ -1,4 +1,6 @@
 import streamlit as st
+import streamlit.components.v1 as components
+from graph_utils import get_graph, get_data
 from streamlit_agraph import agraph, Node, Edge, Config
 import networkx as nx
 import glob
@@ -29,7 +31,6 @@ edge_scale = st.slider('Select edge weight', 0.0, 20.0, 8.5, step=0.1)
 
 schizo_list_g = glob.glob(f'stats/sch/{take}/*')
 control_list_g = glob.glob(f'stats/control/{take}/*')
-print(schizo_list_g)
 
 schizo_list_g_names = [x.split('/')[3][15:] for x in schizo_list_g]
 control_list_g_names = [x.split('/')[3][15:] for x in control_list_g]
@@ -41,7 +42,14 @@ else:
     control_subject = sidebar.radio('Select a subject (Control)', control_list_g_names)
     G = nx.read_gpickle(control_list_g[control_list_g_names.index(control_subject)])
 
-g_vis = freq_to_display(fmin, fmax, G)
+# check if G is instance of list
+if isinstance(G, list):
+
+    t_epoch = st.slider('Select a epoch', 0, len(G), 5, step=1)
+    print(G[t_epoch].to_networkx())
+    g_vis = freq_to_display(fmin, fmax, G[t_epoch].to_networkx())
+else:
+    g_vis = freq_to_display(fmin, fmax, G)
 
 
 filtered_G = g_vis
@@ -77,8 +85,8 @@ config = Config(width='100%', height=600, nodeHighlightBehavior=True, highlightC
                 ,scaling={"label": {"enabled": True}, "min": 10, "max": 50},
                 physics={"enabled": True, "stabilization": False, "forceAtlas2Based": {"theta": 0.5, "gravitationalConstant": -50.0, "centralGravity": 0.01, "springLength": 100, "springConstant": 0.08, "damping": 0.4, "avoidOverlap": 0}, "solver": "forceAtlas2Based", "iterations": 10})
 
-                # node={'labelProperty': 'label'},
-                # link={'labelProperty': 'label', 'renderLabel': True}
+# node={'labelProperty': 'label'},
+# link={'labelProperty': 'label', 'renderLabel': True}
 
 # Plot the graph using the agraph function
 # st.write(agraph(nodes=nodes, edges=edges, config=config))
